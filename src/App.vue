@@ -5,25 +5,39 @@ import CurriculumGallery from "./components/curriculum-gallery/CurriculumGallery
 import Footer from "./components/footer/Fotter.vue";
 
 import "./style.scss";
+
+import { ref, nextTick } from "vue";
+
+const welcomeSectionEndRef = ref(document.querySelector(".card-list"));
+
+const scrollDown = () => {
+  nextTick(() => {
+    welcomeSectionEndRef.value?.scrollIntoView({ behavior: "smooth" });
+  });
+};
 </script>
 
 <template>
-  <Presentation />
+  <Presentation :scrollDown="scrollDown" />
 
   <div class="relative">
     <section
       aria-label="Personalise-me, seu currículo personalizado"
       class="card-list flex-row gap-60"
+      ref="welcomeSectionEndRef"
     >
       <PresentationCard
+        aria-label="Currículos"
         title="currículos"
         text="Você é livre para escolher dentre os modelos de currículos e personalizá-los para serem seus!"
       />
       <PresentationCard
+        aria-label="Facilidade"
         title="facilidade"
         text="Nenhuma ferramenta adicional será necessária. Você preenche suas informações e entregamos seu currículo!"
       />
       <PresentationCard
+        aria-label="Gratuito"
         title="gratuito"
         text="A plataforma é 100% gratuita, e após receber seu currículo, você poderá baixá-lo para ser seu!"
         :yellow="true"

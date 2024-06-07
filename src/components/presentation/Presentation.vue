@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ButtonPrimary from "../button-primary/ButtonPrimary.vue";
 
-defineProps();
+defineProps<{ scrollDown: () => void }>();
 </script>
 
 <template>
@@ -20,7 +20,7 @@ defineProps();
         </div>
 
         <div class="button-box">
-          <ButtonPrimary label="começar" />
+          <ButtonPrimary label="começar" @click="scrollDown" />
         </div>
       </div>
     </div>
