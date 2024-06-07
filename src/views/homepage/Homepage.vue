@@ -2,7 +2,7 @@
 import Presentation from "../../components/presentation/Presentation.vue";
 import PresentationCard from "../../components/card/presentation-card/PresentationCard.vue";
 import CurriculumGallery from "../../components/curriculum-gallery/CurriculumGallery.vue";
-import Footer from "../../components/footer/Fotter.vue";
+import Footer from "../../components/footer/Footer.vue";
 import "../../style.scss";
 
 import { ref, nextTick } from "vue";

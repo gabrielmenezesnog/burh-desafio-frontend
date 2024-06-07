@@ -2,7 +2,7 @@
 
 <template>
   <div class="footer__container">
-    <div class="footer__content relative grid">
+    <div class="container footer__content relative grid">
       <h1 class="footer__logo-title">personailze.me</h1>
       <ul>
         <h1 class="footer__contact-label">Contato</h1>
