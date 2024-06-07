@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import "./style.scss";
-
 defineProps<{ title: string; text: string; yellow?: boolean }>();
 </script>
 
@@ -22,4 +20,34 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.card-list {
+  position: relative;
+  top: -80px;
+  left: 20%;
+  animation: slideUp 0.5s ease-in-out 0.5s;
+  animation-fill-mode: backwards;
+}
+
+@media (max-width: 768px) {
+  .card-container-mobile {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .card-list {
+    top: -60px;
+    left: 0px;
+    position: inherit;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .card-list::-webkit-scrollbar {
+    display: none;
+  }
+}
+</style>

@@ -9,7 +9,10 @@ import "./style.scss";
   <Presentation />
 
   <div class="relative">
-    <div class="card-list flex-row gap-60">
+    <section
+      aria-label="Personalise-me, seu currículo personalizado"
+      class="card-list flex-row gap-60"
+    >
       <PresentationCard
         title="currículos"
         text="Você é livre para escolher dentre os modelos de currículos e personalizá-los para serem seus!"
@@ -23,8 +26,144 @@ import "./style.scss";
         text="A plataforma é 100% gratuita, e após receber seu currículo, você poderá baixá-lo para ser seu!"
         :yellow="true"
       />
-    </div>
+    </section>
+
+    <section aria-label="Galeria de currículos" class="container relative">
+      <div class="title-line">
+        <div>
+          <span class="title-span">edite ou crie um currículo novo</span>
+          <h1 class="title-section">Galeria de currículos</h1>
+        </div>
+
+        <div class="button-primary">
+          <div class="flex-row gap-20 button-label button-center">
+            <h1>novo currículo</h1>
+            <font-awesome-icon icon="circle-plus" class="icon" />
+          </div>
+        </div>
+
+        <CurriculumGallery />
+      </div>
+    </section>
   </div>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.card-container-t1 {
+  background: #222;
+  padding: 20px;
+}
+
+.card-container-t2 {
+  background: #ffbb00;
+  padding: 20px;
+}
+
+.card-container-t1,
+.card-container-t2 {
+  box-shadow: 0px 5px 14px 0px rgba(0, 0, 0, 0.2);
+  width: 360px;
+  height: 180px;
+}
+
+.card-title-t1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: calc(1.5rem * 1.5);
+}
+
+.card-text-t1 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #9c9c9c;
+  line-height: calc(1rem * 1.5);
+  margin-top: 20px;
+}
+
+.card-title-t2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #221700;
+  line-height: calc(1.5rem * 1.5);
+}
+
+.card-text-t2 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #976f00;
+  line-height: calc(1rem * 1.5);
+  margin-top: 20px;
+}
+
+.title-span {
+  color: #9c9c9c;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.title-section {
+  color: #111;
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.button-label {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #221700;
+  line-height: calc(1.5rem * 1.5);
+}
+
+.button-center {
+  justify-content: center;
+}
+
+.title-line {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.icon {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .card-container-t1,
+  .card-container-t2 {
+    min-width: 240px;
+    min-height: 180px;
+  }
+
+  .card-container-mobile {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .title-span {
+    color: #9c9c9c;
+    font-size: calc(1.25rem / 1.5);
+    font-weight: 500;
+  }
+
+  .title-section {
+    color: #111;
+    font-size: calc(2.5rem / 1.5);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .button-label {
+    font-size: calc(1.25rem / 1.2);
+  }
+
+  .title-line {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+</style>
