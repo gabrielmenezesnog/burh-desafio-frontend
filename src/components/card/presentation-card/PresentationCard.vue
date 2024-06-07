@@ -24,7 +24,7 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
 .card-list {
   position: relative;
   top: -80px;
-  left: 20%;
+  justify-content: center;
   animation: slideUp 0.5s ease-in-out 0.5s;
   animation-fill-mode: backwards;
 }
@@ -44,6 +44,7 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
     gap: 0px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    justify-content: inherit;
   }
 
   .card-list::-webkit-scrollbar {
