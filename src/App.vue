@@ -2,6 +2,7 @@
 import Presentation from "./components/presentation/Presentation.vue";
 import PresentationCard from "./components/card/presentation-card/PresentationCard.vue";
 import CurriculumGallery from "./components/curriculum-gallery/CurriculumGallery.vue";
+import Footer from "./components/footer/Fotter.vue";
 
 import "./style.scss";
 </script>
@@ -45,6 +46,10 @@ import "./style.scss";
 
         <CurriculumGallery />
       </div>
+    </section>
+
+    <section class="rodapé">
+      <Footer />
     </section>
   </div>
 </template>
