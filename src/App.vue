@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Presentation from "./components/presentation/Presentation.vue";
 import PresentationCard from "./components/card/presentation-card/PresentationCard.vue";
+import CurriculumGallery from "./components/curriculum-gallery/CurriculumGallery.vue";
 
 import "./style.scss";
 </script>
