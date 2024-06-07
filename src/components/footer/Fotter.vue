@@ -1,17 +1,17 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="container-footer">
-    <div class="container relative grid">
-      <h1 class="logo-title">personailze.me</h1>
+  <div class="footer__container">
+    <div class="footer__content relative grid">
+      <h1 class="footer__logo-title">personailze.me</h1>
       <ul>
-        <h1 class="contact-label">Contato</h1>
+        <h1 class="footer__contact-label">Contato</h1>
         <li>+55 41 99992-3767</li>
         <li>gabriel.gmnogueira@gmail.com</li>
         <li>Curitiba - PR</li>
       </ul>
 
-      <p class="extra-label">
+      <p class="footer__extra-label">
         Desenvolvido com carinho por Gabriel de Menezes Nogueira.
       </p>
     </div>
@@ -33,7 +33,7 @@ $color-extra: #ccc;
   color: $color;
 }
 
-.container-footer {
+.footer__container {
   background: #000;
   height: 240px;
   margin-top: 320px;
@@ -41,11 +41,11 @@ $color-extra: #ccc;
   padding: 40px;
 }
 
-.logo-title {
+.footer__logo-title {
   @include font-properties(1.5rem, $font-weight-base, $color-base);
 }
 
-.contact-label {
+.footer__contact-label {
   @include font-properties(1.25rem, $font-weight-base, $color-base);
   margin-bottom: $margin-bottom-base;
 }
@@ -60,22 +60,22 @@ ul li {
   grid-template-columns: 2fr 1fr;
 }
 
-.extra-label {
+.footer__extra-label {
   @include font-properties($font-size-base, 400, $color-extra);
   margin-top: $margin-top-base;
 }
 
 @media (max-width: 768px) {
-  .container-footer {
+  .footer__container {
     height: 340px;
     margin-top: 120px;
   }
 
-  .logo-title {
+  .footer__logo-title {
     margin-bottom: $margin-bottom-base;
   }
 
-  .extra-label {
+  .footer__extra-label {
     margin-bottom: $margin-bottom-base;
   }
 

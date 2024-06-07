@@ -6,22 +6,26 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
   <div
     :class="
       yellow
-        ? 'card-container-t2 card-container-mobile'
-        : 'card-container-t1 card-container-mobile'
+        ? 'card--container--type2 card-container-mobile'
+        : 'card--container--type1 card-container-mobile'
     "
   >
     <div class="flex-row gap-20">
       <div
         :class="yellow ? 'separator-vertical-t2' : 'separator-vertical-t1'"
       />
-      <h1 :class="yellow ? 'card-title-t2' : 'card-title-t1'">{{ title }}</h1>
+      <h1 :class="yellow ? 'card--title--type2' : 'card--title--type1'">
+        {{ title }}
+      </h1>
     </div>
-    <p :class="yellow ? 'card-text-t2' : 'card-text-t1'">{{ text }}</p>
+    <p :class="yellow ? 'card--text--type2' : 'card--text--type1'">
+      {{ text }}
+    </p>
   </div>
 </template>
 
 <style lang="scss">
-.card-list {
+.card-list--container {
   position: relative;
   top: -80px;
   justify-content: center;
@@ -35,7 +39,7 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
     margin-right: 12px;
   }
 
-  .card-list {
+  .card-list--container {
     top: -60px;
     left: 0px;
     position: inherit;
@@ -47,7 +51,7 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
     justify-content: inherit;
   }
 
-  .card-list::-webkit-scrollbar {
+  .card-list--container::-webkit-scrollbar {
     display: none;
   }
 }

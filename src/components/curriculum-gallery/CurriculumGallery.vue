@@ -2,14 +2,14 @@
 
 <template>
   <section aria-label="currículos gerados">
-    <h1 class="empty-gallery">
+    <h1 class="empty--gallery">
       Você ainda não possui nenhum currículo. Crie um agora!
     </h1>
   </section>
 </template>
 
 <style lang="scss" scoped>
-.empty-gallery {
+.empty--gallery {
   margin-top: 80px;
   font-size: 1.25rem;
   font-weight: 400;
@@ -18,7 +18,7 @@
 }
 
 @media (max-width: 768px) {
-  .empty-gallery {
+  .empty--gallery {
     margin-top: 60px;
     font-size: 0.875rem;
     color: #595959;
