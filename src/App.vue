@@ -131,6 +131,7 @@ import "./style.scss";
   grid-template-columns: 2fr 1fr;
   align-items: center;
   margin-bottom: 40px;
+  margin-top: 120px;
 }
 
 .icon {
@@ -170,6 +171,7 @@ import "./style.scss";
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 60px;
   }
 }
 </style>

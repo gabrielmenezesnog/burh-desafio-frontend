@@ -19,30 +19,40 @@
 </template>
 
 <style lang="scss" scoped>
+$font-size-base: 1rem;
+$font-weight-base: 500;
+$margin-bottom-base: 20px;
+$margin-top-base: 40px;
+$color-base: #fff;
+$color-secondary: #9c9c9c;
+$color-extra: #ccc;
+
+@mixin font-properties($size, $weight, $color) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
 .container-footer {
   background: #000;
   height: 240px;
   margin-top: 320px;
-  color: #fff;
+  color: $color-base;
   padding: 40px;
 }
 
 .logo-title {
-  font-size: 1.5rem;
-  font-weight: 500;
+  @include font-properties(1.5rem, $font-weight-base, $color-base);
 }
 
 .contact-label {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin-bottom: 20px;
+  @include font-properties(1.25rem, $font-weight-base, $color-base);
+  margin-bottom: $margin-bottom-base;
 }
 
 ul li {
-  font-size: 1rem;
-  font-weight: 400;
+  @include font-properties($font-size-base, 400, $color-secondary);
   margin-bottom: 12px;
-  color: #9c9c9c;
 }
 
 .grid {
@@ -51,27 +61,22 @@ ul li {
 }
 
 .extra-label {
-  font-size: 1rem;
-  font-weight: 400;
-  margin-top: 40px;
-  color: #ccc;
+  @include font-properties($font-size-base, 400, $color-extra);
+  margin-top: $margin-top-base;
 }
 
 @media (max-width: 768px) {
   .container-footer {
     height: 340px;
+    margin-top: 120px;
   }
 
   .logo-title {
-    margin-bottom: 40px;
+    margin-bottom: $margin-bottom-base;
   }
 
   .extra-label {
-    font-size: 1rem;
-    font-weight: 400;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    color: #ccc;
+    margin-bottom: $margin-bottom-base;
   }
 
   ul {
