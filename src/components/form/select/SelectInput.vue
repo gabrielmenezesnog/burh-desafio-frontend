@@ -5,6 +5,7 @@ const props = defineProps<{
   label: string;
   type: string;
   reference: string;
+  modelValue?: string;
 }>();
 
 const options = ref<string[]>([]);
@@ -18,13 +19,19 @@ watchEffect(() => {
     console.error("Tipo de opção não suportado");
   }
 });
+
+const emit = defineEmits(["update:modelValue"]);
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+};
 </script>
 
 <template>
   <div class="container--input">
     <label :for="reference">{{ label }}</label>
     <div class="select-container">
-      <select :name="reference" :id="reference">
+      <select :name="reference" :id="reference" @input="onInput">
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
         </option>

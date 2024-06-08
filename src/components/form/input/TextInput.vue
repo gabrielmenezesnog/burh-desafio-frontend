@@ -6,6 +6,7 @@ const props = defineProps<{
   placeholder?: string;
   reference: string;
   type: string;
+  modelValue?: string;
 }>();
 
 const type: Ref<string> = ref(props.type);
@@ -22,6 +23,12 @@ const onClickInput = () => {
     type.value = "date";
   }
 };
+
+const emit = defineEmits(["update:modelValue"]);
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+};
 </script>
 
 <template>
@@ -34,6 +41,8 @@ const onClickInput = () => {
       :id="reference"
       :maxlength="60"
       :placeholder="placeholder"
+      :value="modelValue"
+      @input="onInput"
     />
 
     <font-awesome-icon
@@ -76,7 +85,7 @@ input {
   position: absolute;
   top: 56px;
   right: 20px;
-  color: #404040;
+  color: #b2b2b2;
 }
 
 input::-webkit-outer-spin-button,

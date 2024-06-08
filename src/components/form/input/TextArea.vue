@@ -6,10 +6,17 @@ defineProps<{
   placeholder?: string;
   type: string;
   reference: string;
+  modelValue?: string;
 }>();
 const textAreaValue = ref("");
 const maxLength = 600;
 const remainingChars = computed(() => maxLength - textAreaValue.value.length);
+
+const emit = defineEmits(["update:modelValue"]);
+const onInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+};
 </script>
 
 <template>
@@ -21,6 +28,7 @@ const remainingChars = computed(() => maxLength - textAreaValue.value.length);
       :id="reference"
       :maxlength="maxLength"
       :placeholder="placeholder"
+      @input="onInput"
     ></textarea>
     <div class="char-count">{{ remainingChars }} caracteres restantes</div>
   </div>
