@@ -1,0 +1,82 @@
+<script setup lang="ts">
+import { defineProps, ref, watchEffect } from "vue";
+
+const props = defineProps<{
+  label: string;
+  type: string;
+  reference: string;
+}>();
+
+const options = ref<string[]>([]);
+
+watchEffect(() => {
+  if (props.type === "sexo") {
+    options.value = ["Masculino", "Feminino"];
+  } else if (props.type === "civil") {
+    options.value = ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)"];
+  } else {
+    console.error("Tipo de opção não suportado");
+  }
+});
+</script>
+
+<template>
+  <div class="container--input">
+    <label :for="reference">{{ label }}</label>
+    <div class="select-container">
+      <select :name="reference" :id="reference">
+        <option v-for="option in options" :key="option" :value="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.container--input {
+  margin-bottom: 32px;
+}
+
+label {
+  display: block;
+  font: 1rem;
+  color: #404040;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.select-container {
+  position: relative;
+}
+
+select {
+  position: relative;
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  background: #f7f7f7;
+  width: 100%;
+  font-size: 1rem;
+  color: #717171;
+  transition: border-color 0.3s;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none; /* Remove o estilo padrão do navegador */
+}
+
+.select-container::after {
+  content: "▼";
+  color: #2e2e2e;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+select:focus {
+  outline: 0;
+  border: 1px solid #ffbb00;
+}
+</style>
