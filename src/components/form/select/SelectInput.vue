@@ -6,6 +6,7 @@ const props = defineProps<{
   type: string;
   reference: string;
   modelValue?: string;
+  error?: boolean;
 }>();
 
 const options = ref<string[]>([]);
@@ -31,7 +32,14 @@ const onInput = (event: Event) => {
   <div class="container--input">
     <label :for="reference">{{ label }}</label>
     <div class="select-container">
-      <select :name="reference" :id="reference" @input="onInput">
+      <select
+        :name="reference"
+        :id="reference"
+        @input="onInput"
+        :class="{ 'error-border': error, 'error-text': error }"
+        :style="{ color: error ? 'red' : '' }"
+      >
+        <option value="" disabled selected>Escolha uma opção</option>
         <option v-for="option in options" :key="option" :value="option">
           {{ option }}
         </option>
@@ -85,5 +93,13 @@ select {
 select:focus {
   outline: 0;
   border: 1px solid #ffbb00;
+}
+
+.error-border {
+  border-color: #ff0000;
+}
+
+select.error-text::placeholder {
+  color: #ff0000;
 }
 </style>

@@ -4,6 +4,72 @@ import TextInput from "../../components/form/input/TextInput.vue";
 import SelectInput from "../../components/form/select/SelectInput.vue";
 import TextArea from "../../components/form/input/TextArea.vue";
 import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
+import useVuelidate from "@vuelidate/core";
+import { ref } from "vue";
+import { email, required } from "@vuelidate/validators";
+
+const formValues = ref({
+  personalData: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    birthDate: "",
+    gender: "",
+    maritalStatus: "",
+  },
+  address: {
+    cep: "",
+    streetName: "",
+    number: "",
+    neighborhood: "",
+    city: "",
+    state: "",
+  },
+  career: {
+    office: "",
+    experience: "",
+    about: "",
+    habilities: "",
+    languages: "",
+  },
+});
+
+const rules = {
+  personalData: {
+    firstName: { required },
+    lastName: { required },
+    email: { required, email },
+    phone: { required },
+    birthDate: { required },
+    gender: { required },
+    maritalStatus: { required },
+  },
+  address: {
+    cep: { required },
+    streetName: { required },
+    number: { required },
+    neighborhood: { required },
+    city: { required },
+    state: { required },
+  },
+  career: {
+    office: { required },
+    experience: { required },
+    about: { required },
+    habilities: { required },
+    languages: { required },
+  },
+};
+
+let validator = useVuelidate(rules, formValues);
+
+const validate = () => {
+  validator.value.$validate();
+  if (validator.value.$errors.length === 0) {
+    console.log("formulário livre para enviar: ", formValues.value);
+  }
+};
 </script>
 
 <template>
@@ -16,14 +82,19 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
           <TextInput
             label="Nome"
             type="text"
-            reference="name"
+            reference="firstName"
             placeholder="seu nome"
+            v-model="formValues.personalData.firstName"
+            :error="validator.personalData.firstName.$error"
           />
+
           <TextInput
             label="Sobrenome"
             type="text"
             reference="lastName"
             placeholder="seu sobrenome"
+            v-model="formValues.personalData.lastName"
+            :error="validator.personalData.lastName.$error"
           />
         </div>
 
@@ -33,12 +104,17 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="email"
             reference="email"
             placeholder="email@contato.com"
+            v-model="formValues.personalData.email"
+            :error="validator.personalData.email.$error"
           />
+
           <TextInput
             label="Telefone"
-            type="tel"
+            type="number"
             reference="tel"
             placeholder="00 00000-0000"
+            v-model="formValues.personalData.phone"
+            :error="validator.personalData.phone.$error"
           />
         </div>
 
@@ -48,9 +124,24 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="date"
             reference="date"
             placeholder="dd/mm/aaaa"
+            v-model="formValues.personalData.birthDate"
+            :error="validator.personalData.birthDate.$error"
           />
-          <SelectInput label="Sexo" type="sexo" reference="sexo" />
-          <SelectInput label="Estado Civil" type="civil" reference="civil" />
+
+          <SelectInput
+            label="Sexo"
+            type="sexo"
+            reference="sexo"
+            v-model="formValues.personalData.gender"
+            :error="validator.personalData.gender.$error"
+          />
+          <SelectInput
+            label="Estado Civil"
+            type="maritalStatus"
+            reference="maritalStatus"
+            v-model="formValues.personalData.maritalStatus"
+            :error="validator.personalData.maritalStatus.$error"
+          />
         </div>
       </section>
 
@@ -63,12 +154,16 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="text"
             reference="cep"
             placeholder="00000-000"
+            v-model="formValues.address.cep"
+            :error="validator.address.cep.$error"
           />
           <TextInput
             label="Logradouro"
             type="text"
             reference="street"
             placeholder="nome da rua"
+            v-model="formValues.address.streetName"
+            :error="validator.address.streetName.$error"
           />
         </div>
 
@@ -78,12 +173,16 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="number"
             reference="number"
             placeholder="0000"
+            v-model="formValues.address.number"
+            :error="validator.address.number.$error"
           />
           <TextInput
             label="Bairro"
             type="text"
             reference="neighborhood"
             placeholder="nome do bairro"
+            v-model="formValues.address.neighborhood"
+            :error="validator.address.neighborhood.$error"
           />
         </div>
 
@@ -93,12 +192,16 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="text"
             reference="city"
             placeholder="nome da cidade"
+            v-model="formValues.address.city"
+            :error="validator.address.city.$error"
           />
           <TextInput
             label="Estado"
             type="text"
             reference="state"
             placeholder="nome do estado"
+            v-model="formValues.address.state"
+            :error="validator.address.state.$error"
           />
         </div>
       </section>
@@ -112,12 +215,16 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
             type="text"
             reference="office"
             placeholder="exemplo: Desenvolvedor front-end"
+            v-model="formValues.career.office"
+            :error="validator.career.office.$error"
           />
           <TextInput
             label="Tempo de experiêcia"
             type="number"
             reference="xp"
             placeholder="experiência em anos"
+            v-model="formValues.career.experience"
+            :error="validator.career.experience.$error"
           />
         </div>
 
@@ -126,23 +233,29 @@ import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
           type="text"
           reference="office"
           placeholder="Conte um pouco sobre você e o seu histórico e perfil profissional "
+          v-model="formValues.career.about"
+          :error="validator.career.about.$error"
         />
         <TextArea
           label="Habilidades"
           type="text"
           reference="habilities"
           placeholder="Separe as habilidades com vírgula, exemplo: Excel, Word, UI Design, Javascript, etc.."
+          v-model="formValues.career.habilities"
+          :error="validator.career.habilities.$error"
         />
         <TextArea
           label="Idiomas"
           type="text"
           reference="languages"
           placeholder="Separe os idiomas com vírgula, exemplo: inglês avançado, espanhol intermediário, etc..."
+          v-model="formValues.career.languages"
+          :error="validator.career.languages.$error"
         />
       </section>
 
       <div class="button--container">
-        <ButtonPrimary label="finalizar" />
+        <ButtonPrimary label="finalizar" :onClick="validate" />
       </div>
     </div>
   </section>

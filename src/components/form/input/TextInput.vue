@@ -7,6 +7,7 @@ const props = defineProps<{
   reference: string;
   type: string;
   modelValue?: string;
+  error?: boolean;
 }>();
 
 const type: Ref<string> = ref(props.type);
@@ -33,16 +34,30 @@ const onInput = (event: Event) => {
 
 <template>
   <div class="container--input">
-    <label :for="reference">{{ label }}</label>
+    <div class="container--label">
+      <label :for="reference">{{ label }}</label>
+      <p
+        v-if="
+          error &&
+          type !== 'date' &&
+          type !== 'gender' &&
+          type !== 'maritalStatus'
+        "
+        class="error-text"
+      >
+        preencha o campo corretamente
+      </p>
+    </div>
     <input
       @click="onClickInput"
       :type="type"
       :name="reference"
       :id="reference"
       :maxlength="60"
-      :placeholder="placeholder"
       :value="modelValue"
       @input="onInput"
+      :placeholder="placeholder"
+      :class="{ 'error-border': error, 'error-text': error }"
     />
 
     <font-awesome-icon
@@ -59,12 +74,19 @@ const onInput = (event: Event) => {
   position: relative;
 }
 
+.container--label {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 0.75rem;
+}
+
 label {
   display: block;
-  font: 1rem;
+  font-size: 1rem;
   color: #404040;
-  margin-bottom: 0.75rem;
   font-weight: 500;
+  align-items: center;
 }
 
 input {
@@ -79,6 +101,15 @@ input {
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.error-border {
+  border-color: #ff0000;
+}
+
+.error-text {
+  color: #ff0000;
+  font-size: 14px;
 }
 
 .calendar--icon {

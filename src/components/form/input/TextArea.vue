@@ -7,6 +7,7 @@ defineProps<{
   type: string;
   reference: string;
   modelValue?: string;
+  error?: boolean;
 }>();
 const textAreaValue = ref("");
 const maxLength = 600;
@@ -21,14 +22,28 @@ const onInput = (event: Event) => {
 
 <template>
   <div class="container--input">
-    <label :for="reference">{{ label }}</label>
+    <div class="container--label">
+      <label :for="reference">{{ label }}</label>
+      <p
+        v-if="
+          error &&
+          type !== 'date' &&
+          type !== 'gender' &&
+          type !== 'maritalStatus'
+        "
+        class="error-text"
+      >
+        preencha o campo corretamente
+      </p>
+    </div>
     <textarea
       v-model="textAreaValue"
       :name="reference"
       :id="reference"
       :maxlength="maxLength"
-      :placeholder="placeholder"
       @input="onInput"
+      :placeholder="placeholder"
+      :class="{ 'error-border': error, 'error-text': error }"
     ></textarea>
     <div class="char-count">{{ remainingChars }} caracteres restantes</div>
   </div>
@@ -37,6 +52,13 @@ const onInput = (event: Event) => {
 <style lang="scss" scoped>
 .container--input {
   margin-bottom: 32px;
+}
+
+.container--label {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-bottom: 0.75rem;
 }
 
 label {
@@ -77,6 +99,15 @@ textarea::placeholder {
   color: #999;
   text-align: right;
   margin-top: 4px;
+}
+
+.error-border {
+  border-color: #ff0000;
+}
+
+.error-text {
+  color: #ff0000;
+  font-size: 14px;
 }
 
 @media (max-width: 500px) {
