@@ -29,7 +29,7 @@ const navigateToEdit = () => {
   <div class="relative">
     <section
       aria-label="Personalise-me, seu currículo personalizado"
-      class="card-list--container flex-row gap-60"
+      class="card-list--container flex--row gap--60"
       ref="welcomeSectionEndRef"
     >
       <PresentationCard
@@ -57,8 +57,8 @@ const navigateToEdit = () => {
           <h1 class="title--section">Galeria de currículos</h1>
         </div>
 
-        <div class="button-primary" @click="navigateToEdit">
-          <div class="flex-row gap-20 button--label button--centered">
+        <div class="button--primary" @click="navigateToEdit">
+          <div class="flex--row gap--20 button--label button--centered">
             <h1>novo currículo</h1>
             <font-awesome-icon icon="circle-plus" class="icon" />
           </div>

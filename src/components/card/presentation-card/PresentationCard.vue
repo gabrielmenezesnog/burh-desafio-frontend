@@ -10,9 +10,11 @@ defineProps<{ title: string; text: string; yellow?: boolean }>();
         : 'card--container--type1 card-container-mobile'
     "
   >
-    <div class="flex-row gap-20">
+    <div class="flex--row gap--20">
       <div
-        :class="yellow ? 'separator-vertical-t2' : 'separator-vertical-t1'"
+        :class="
+          yellow ? 'separator--vertical--type2' : 'separator--vertical--type1'
+        "
       />
       <h1 :class="yellow ? 'card--title--type2' : 'card--title--type1'">
         {{ title }}
