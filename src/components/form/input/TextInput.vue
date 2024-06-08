@@ -1,28 +1,45 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 
-defineProps<{
+const props = defineProps<{
   label: string;
   placeholder?: string;
   reference: string;
+  type: string;
 }>();
 
-const type = ref("text");
-const date = ref("");
+const type: Ref<string> = ref(props.type);
+const isMobile: Ref<boolean> = ref(
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    window.navigator.userAgent
+  )
+);
+
+const onClickInput = () => {
+  const isDateInput = props.type === "date";
+
+  if (isDateInput && isMobile) {
+    type.value = "date";
+  }
+};
 </script>
 
 <template>
   <div class="container--input">
     <label :for="reference">{{ label }}</label>
     <input
-      v-model="date"
-      @focus="type = 'date'"
-      @blur="type = 'text'"
+      @click="onClickInput"
       :type="type"
       :name="reference"
       :id="reference"
       :maxlength="60"
       :placeholder="placeholder"
+    />
+
+    <font-awesome-icon
+      icon="fa-calendar"
+      class="calendar--icon"
+      v-if="isMobile && type === 'date'"
     />
   </div>
 </template>
@@ -30,6 +47,7 @@ const date = ref("");
 <style lang="scss" scoped>
 .container--input {
   margin-bottom: 32px;
+  position: relative;
 }
 
 label {
@@ -52,6 +70,13 @@ input {
   padding: 20px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.calendar--icon {
+  position: absolute;
+  top: 56px;
+  right: 20px;
+  color: #404040;
 }
 
 input::-webkit-outer-spin-button,

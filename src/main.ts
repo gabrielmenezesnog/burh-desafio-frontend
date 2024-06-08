@@ -3,10 +3,10 @@ import "./style.scss";
 import App from "./App.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faCalendar } from "@fortawesome/free-solid-svg-icons";
 import router from "./router";
 
-library.add(faCirclePlus);
+library.add(faCirclePlus, faCalendar);
 
 createApp(App)
   .use(router)
