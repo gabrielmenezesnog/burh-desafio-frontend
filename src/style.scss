@@ -52,7 +52,7 @@ body {
   margin: 0 auto;
 }
 
-.button-primary {
+.button--primary {
   box-sizing: border-box;
   background: #ffbb00;
   color: #f5f7fa;
@@ -64,13 +64,14 @@ body {
   text-align: center;
   cursor: pointer;
   transition: 0.3s;
+  max-width: 400px;
 }
 
-.button-primary:hover {
+.button--primary:hover {
   background: #ededed;
 }
 
-.button-primary-label {
+.button--primary--label {
   font-size: 1.5rem;
   font-weight: 600;
   color: #221700;
@@ -84,31 +85,31 @@ body {
   height: 2px;
 }
 
-.separator-vertical-t1 {
+.separator--vertical--type1 {
   display: block;
   background: #ffbb00;
   width: 6px;
   height: 24px;
 }
 
-.separator-vertical-t2 {
+.separator--vertical--type2 {
   display: block;
   background: #221700;
   width: 6px;
   height: 24px;
 }
 
-.flex-row {
+.flex--row {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.gap-20 {
+.gap--20 {
   gap: 20px;
 }
 
-.gap-60 {
+.gap--60 {
   gap: 60px;
 }
 
@@ -122,7 +123,7 @@ body {
     height: 2px;
   }
 
-  .button-primary-label {
+  .button--primary--label {
     font-size: 1.25rem;
   }
 }
