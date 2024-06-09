@@ -63,9 +63,8 @@ const navigateToEdit = () => {
             <font-awesome-icon icon="circle-plus" class="icon" />
           </div>
         </div>
-
-        <CurriculumGallery />
       </div>
+      <CurriculumGallery />
     </section>
 
     <section class="rodapé">
