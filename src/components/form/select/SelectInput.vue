@@ -12,9 +12,9 @@ const props = defineProps<{
 const options = ref<string[]>([]);
 
 watchEffect(() => {
-  if (props.type === "sexo") {
+  if (props.type === "gender") {
     options.value = ["Masculino", "Feminino"];
-  } else if (props.type === "civil") {
+  } else if (props.type === "maritalStatus") {
     options.value = ["Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)"];
   } else {
     console.error("Tipo de opção não suportado");
@@ -34,6 +34,7 @@ const onInput = (event: Event) => {
     <div class="select-container">
       <select
         :name="reference"
+        :value="modelValue"
         :id="reference"
         @input="onInput"
         :class="{ 'error-border': error, 'error-text': error }"
