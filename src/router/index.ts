@@ -11,9 +11,10 @@ const routes = [
     component: Homepage,
   },
   {
-    path: "/editar",
+    path: "/editar/:id?",
     name: "editar",
     component: CurriculumEdit,
+    props: true,
   },
 ];
 

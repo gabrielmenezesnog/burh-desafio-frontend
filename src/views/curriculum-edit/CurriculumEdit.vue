@@ -4,11 +4,28 @@ import TextInput from "../../components/form/input/TextInput.vue";
 import SelectInput from "../../components/form/select/SelectInput.vue";
 import TextArea from "../../components/form/input/TextArea.vue";
 import ButtonPrimary from "../../components/button-primary/ButtonPrimary.vue";
-import useVuelidate from "@vuelidate/core";
-import { ref } from "vue";
-import { email, required } from "@vuelidate/validators";
+import CurriculumOutput from "../../components/curriculum-output/CurriculumOutput.vue";
 
-const formValues = ref({
+import { api } from "../../api";
+import router from "../../router";
+
+import { onMounted, ref, watch } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { email, required } from "@vuelidate/validators";
+import html2pdf from "html2pdf.js";
+import { iFormValues } from "../../interfaces/iFormValues";
+import { useRoute } from "vue-router";
+
+defineProps<{
+  id?: string;
+  label?: string;
+  type?: string;
+  reference?: string;
+  modelValue?: string;
+  error?: boolean;
+}>();
+
+const formValues = ref<iFormValues>({
   personalData: {
     firstName: "",
     lastName: "",
@@ -29,7 +46,6 @@ const formValues = ref({
   career: {
     office: "",
     experience: "",
-    about: "",
     habilities: "",
     languages: "",
   },
@@ -56,7 +72,6 @@ const rules = {
   career: {
     office: { required },
     experience: { required },
-    about: { required },
     habilities: { required },
     languages: { required },
   },
@@ -64,11 +79,67 @@ const rules = {
 
 let validator = useVuelidate(rules, formValues);
 
-const validate = () => {
+const route = useRoute();
+
+const formId = ref<string | string[]>("");
+
+onMounted(() => {
+  if (route.params.id) {
+    formId.value = route.params.id;
+  } else {
+  }
+});
+
+watch(
+  formId,
+  async (id, _oldVal) => {
+    if (id) {
+      await api
+        .get(`/curriculum/${id}`)
+        .then((res) => (formValues.value = res.data));
+    }
+  },
+  { immediate: true }
+);
+
+const validate = async () => {
   validator.value.$validate();
   if (validator.value.$errors.length === 0) {
-    console.log("formulário livre para enviar: ", formValues.value);
+    await postData();
+
+    router.push("/");
   }
+};
+
+const postData = async () => {
+  try {
+    await generatePDF();
+
+    if (formId) {
+      delete formValues.value._id;
+      await api.put(`/curriculum/${formId.value}`, formValues.value);
+    } else {
+      await api.post(`/curriculum/`, formValues.value);
+    }
+
+    // router.push("/");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const generatePDF = async () => {
+  let element = document.getElementById("curriculum");
+
+  let opt = {
+    margin: 0,
+    filename: `currículo de ${formValues.value.personalData.firstName}.pdf`,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+  };
+
+  html2pdf().from(element).set(opt).save();
 };
 </script>
 
@@ -130,8 +201,8 @@ const validate = () => {
 
           <SelectInput
             label="Sexo"
-            type="sexo"
-            reference="sexo"
+            type="gender"
+            reference="gender"
             v-model="formValues.personalData.gender"
             :error="validator.personalData.gender.$error"
           />
@@ -229,14 +300,6 @@ const validate = () => {
         </div>
 
         <TextArea
-          label="Sobre você"
-          type="text"
-          reference="office"
-          placeholder="Conte um pouco sobre você e o seu histórico e perfil profissional "
-          v-model="formValues.career.about"
-          :error="validator.career.about.$error"
-        />
-        <TextArea
           label="Habilidades"
           type="text"
           reference="habilities"
@@ -259,6 +322,10 @@ const validate = () => {
       </div>
     </div>
   </section>
+
+  <div class="invisible">
+    <CurriculumOutput :formValues="formValues" id="curriculum" />
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -302,6 +369,12 @@ const validate = () => {
 .button--container {
   display: flex;
   justify-content: flex-end;
+}
+
+.invisible {
+  position: absolute;
+  z-index: -1;
+  top: 0;
 }
 
 @media (max-width: 500px) {
