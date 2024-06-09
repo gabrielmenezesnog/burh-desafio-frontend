@@ -1,23 +1,30 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 
-defineProps<{
+const props = defineProps<{
   label: string;
   placeholder?: string;
   type: string;
   reference: string;
-  modelValue?: string;
+  modelValue: string;
   error?: boolean;
 }>();
-const textAreaValue = ref("");
+
+const textAreaValue = ref(props.modelValue || "");
 const maxLength = 600;
 const remainingChars = computed(() => maxLength - textAreaValue.value.length);
 
 const emit = defineEmits(["update:modelValue"]);
+
 const onInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
+  textAreaValue.value = target.value;
   emit("update:modelValue", target.value);
 };
+
+watchEffect(() => {
+  textAreaValue.value = props.modelValue || "";
+});
 </script>
 
 <template>
@@ -37,7 +44,7 @@ const onInput = (event: Event) => {
       </p>
     </div>
     <textarea
-      v-model="textAreaValue"
+      :value="modelValue"
       :name="reference"
       :id="reference"
       :maxlength="maxLength"
