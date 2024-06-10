@@ -29,7 +29,12 @@ onMounted(async () => {
       Você ainda não possui nenhum currículo. Crie um agora!
     </h1>
 
-    <div class="{{ !formsArray ? 'loading--container' : '' }}">
+    <div
+      :class="{
+        'loading--container': !formsArray,
+        '': formsArray,
+      }"
+    >
       <Loading v-if="!formsArray" />
     </div>
 
