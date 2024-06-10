@@ -86,7 +86,6 @@ const formId = ref<string | string[]>("");
 onMounted(() => {
   if (route.params.id) {
     formId.value = route.params.id;
-  } else {
   }
 });
 
@@ -106,8 +105,6 @@ const validate = async () => {
   validator.value.$validate();
   if (validator.value.$errors.length === 0) {
     await postData();
-
-    router.push("/");
   }
 };
 
@@ -115,14 +112,14 @@ const postData = async () => {
   try {
     await generatePDF();
 
-    if (formId) {
+    if (route.params.id) {
       delete formValues.value._id;
       await api.put(`/curriculum/${formId.value}`, formValues.value);
     } else {
       await api.post(`/curriculum/`, formValues.value);
     }
 
-    // router.push("/");
+    router.push("/");
   } catch (error) {
     console.error(error);
   }
