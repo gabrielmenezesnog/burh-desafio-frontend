@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import CurriculumPreview from "../curriculum-preview/CurriculumPreview.vue";
-import { onMounted, ref } from "vue";
+import { defineAsyncComponent, onMounted, ref } from "vue";
 import { api } from "../../api";
 import { iFormValues } from "../../interfaces/iFormValues";
 
 const formsArray = ref<iFormValues[]>();
-
-onMounted(async () => {
-  await fetchForms();
-});
 
 const fetchForms = async () => {
   try {
@@ -17,6 +13,14 @@ const fetchForms = async () => {
     console.error(error);
   }
 };
+
+const Loading = defineAsyncComponent(
+  () => import("../loading/LoadingCircle.vue")
+);
+
+onMounted(async () => {
+  await fetchForms();
+});
 </script>
 
 <template>
@@ -24,6 +28,10 @@ const fetchForms = async () => {
     <h1 v-if="formsArray && formsArray.length === 0" class="empty--gallery">
       Você ainda não possui nenhum currículo. Crie um agora!
     </h1>
+
+    <div class="{{ !formsArray ? 'loading--container' : '' }}">
+      <Loading v-if="!formsArray" />
+    </div>
 
     <ul class="curriculum--gallery">
       <li
@@ -57,6 +65,13 @@ const fetchForms = async () => {
 
 .gallery--item {
   z-index: 0;
+}
+
+.loading--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
 }
 
 @media (max-width: 768px) {
