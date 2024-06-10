@@ -52,32 +52,6 @@ body {
   margin: 0 auto;
 }
 
-.button--primary {
-  box-sizing: border-box;
-  background: #ffbb00;
-  color: #f5f7fa;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  font: 500 1rem/1.5rem "poppins", sans-serif;
-  border: none;
-  padding: 12px 24px;
-  width: 100%;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-  max-width: 400px;
-}
-
-.button--primary:hover {
-  background: #ededed;
-}
-
-.button--primary--label {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #221700;
-  line-height: calc(1.5rem * 1.5);
-}
-
 .separator--horizontal {
   display: block;
   background: #ffbb00;
@@ -121,10 +95,6 @@ body {
   .separator--horizontal {
     width: 40px;
     height: 2px;
-  }
-
-  .button--primary--label {
-    font-size: 1.25rem;
   }
 }
 
