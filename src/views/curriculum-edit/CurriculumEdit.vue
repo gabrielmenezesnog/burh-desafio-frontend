@@ -110,8 +110,6 @@ const validate = async () => {
 
 const postData = async () => {
   try {
-    await generatePDF();
-
     if (route.params.id) {
       delete formValues.value._id;
       await api.put(`/curriculum/${formId.value}`, formValues.value);
@@ -126,17 +124,21 @@ const postData = async () => {
 };
 
 const generatePDF = async () => {
-  let element = document.getElementById("curriculum");
+  validator.value.$validate();
 
-  let opt = {
-    margin: 0,
-    filename: `currículo de ${formValues.value.personalData.firstName}.pdf`,
-    image: { type: "jpeg", quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
-  };
+  if (validator.value.$errors.length === 0) {
+    let element = document.getElementById("curriculum");
 
-  html2pdf().from(element).set(opt).save();
+    let opt = {
+      margin: 0,
+      filename: `currículo de ${formValues.value.personalData.firstName}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+    };
+
+    html2pdf().from(element).set(opt).save();
+  }
 };
 </script>
 
@@ -315,7 +317,8 @@ const generatePDF = async () => {
       </section>
 
       <div class="button--container">
-        <ButtonPrimary label="finalizar" :onClick="validate" />
+        <ButtonPrimary :gray="true" label="baixar PDF" :onClick="generatePDF" />
+        <ButtonPrimary label="salvar e voltar" :onClick="validate" />
       </div>
     </div>
   </section>
@@ -365,7 +368,10 @@ const generatePDF = async () => {
 
 .button--container {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: end;
+  flex-wrap: wrap;
 }
 
 .invisible {
