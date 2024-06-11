@@ -8,6 +8,7 @@ const props = defineProps<{
   type: string;
   modelValue?: string;
   error?: boolean;
+  errorMessage?: string;
 }>();
 
 const type: Ref<string> = ref(props.type);
@@ -45,7 +46,7 @@ const onInput = (event: Event) => {
         "
         class="error-text"
       >
-        preencha o campo corretamente
+        {{ errorMessage || "preencha o campo corretamente" }}
       </p>
     </div>
     <input
@@ -67,6 +68,17 @@ const onInput = (event: Event) => {
     />
   </div>
 </template>
+
+<style scoped>
+.error-text {
+  color: red;
+  font-size: 0.875em;
+}
+
+.error-border {
+  border-color: red;
+}
+</style>
 
 <style lang="scss" scoped>
 .container--input {
